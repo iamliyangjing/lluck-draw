@@ -1,12 +1,14 @@
 package com.example.lotterycommon;
 
+import java.io.Serializable;
+
 /**
  * @program: lluck-draw
  * @description:
  * @author: lyj
  * @create: 2023-05-19 22:59
  **/
-public class Result {
+public class Result implements Serializable {
 
     private static final long serialVersionUID = -3826891916021780628L;
     private String code;
