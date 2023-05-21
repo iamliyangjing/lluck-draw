@@ -52,6 +52,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
      * @return 排除的奖品ID集合
      */
     protected abstract List<String> queryExcludeAwardIds(Long strategyId);
+
     /**
      * 执行抽奖算法
      *
@@ -60,8 +61,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
      * @param excludeAwardIds 排除的抽奖ID集合
      * @return 中奖奖品ID
      */
-    protected abstract String drawAlgorithm(Long strategyId, IDrawAlgorithm drawAlgorithm,List<String> excludeAwardIds);
-
+    protected abstract String drawAlgorithm(Long strategyId, IDrawAlgorithm drawAlgorithm, List<String> excludeAwardIds);
 
     /**
      * 校验抽奖策略是否已经初始化到内存
@@ -109,7 +109,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
         }
 
         Award award = super.queryAwardInfoByAwardId(awardId);
-        DrawAwardInfo drawAwardInfo = new DrawAwardInfo(award.getAwardId(), award.getAwardName());
+        DrawAwardInfo drawAwardInfo = new DrawAwardInfo(award.getAwardId(), award.getAwardType(), award.getAwardName(), award.getAwardContent());
         logger.info("执行策略抽奖完成【已中奖】，用户：{} 策略ID：{} 奖品ID：{} 奖品名称：{}", uId, strategyId, awardId, award.getAwardName());
 
         return new DrawResult(uId, strategyId, Constants.DrawState.SUCCESS.getCode(), drawAwardInfo);

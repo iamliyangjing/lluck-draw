@@ -1,6 +1,7 @@
 package com.example.lottery.domain.strategy.service.draw;
 
 import com.example.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
+import com.example.lotterycommon.Constants;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -16,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DrawConfig {
 
     @Resource
-    private IDrawAlgorithm defaultRateRandomDrawAlgorithm;
+    private IDrawAlgorithm entiretyRateRandomDrawAlgorithm;
 
     @Resource
     private IDrawAlgorithm singleRateRandomDrawAlgorithm;
@@ -27,7 +28,7 @@ public class DrawConfig {
 
     @PostConstruct
     public void init() {
-        drawAlgorithmGroup.put(1, defaultRateRandomDrawAlgorithm);
-        drawAlgorithmGroup.put(2, singleRateRandomDrawAlgorithm);
+        drawAlgorithmGroup.put(Constants.StrategyMode.ENTIRETY.getCode(), entiretyRateRandomDrawAlgorithm);
+        drawAlgorithmGroup.put(Constants.StrategyMode.SINGLE.getCode(), singleRateRandomDrawAlgorithm);
     }
 }
