@@ -62,12 +62,12 @@
         </dependency>
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>lottery-infrastructure</artifactId>
+            <artifactId>lottery-rpc</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>lottery-rpc</artifactId>
+            <artifactId>lottery-infrastructure</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

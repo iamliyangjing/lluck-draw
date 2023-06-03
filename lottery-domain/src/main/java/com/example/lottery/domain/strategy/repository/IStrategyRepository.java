@@ -1,7 +1,7 @@
 package com.example.lottery.domain.strategy.repository;
 
 import com.example.lottery.domain.strategy.domain.aggregates.StrategyRich;
-import com.example.lottery.po.Award;
+import com.example.lottery.domain.strategy.domain.vo.AwardBriefVO;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface IStrategyRepository {
 
     StrategyRich queryStrategyRich(Long strategyId);
 
-    Award queryAwardInfo(String awardId);
+    AwardBriefVO queryAwardInfo(String awardId);
 
     List<String> queryNoStockStrategyAwardList(Long strategyId);
 
