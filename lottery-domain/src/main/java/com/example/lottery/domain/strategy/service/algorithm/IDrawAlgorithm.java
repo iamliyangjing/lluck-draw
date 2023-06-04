@@ -11,6 +11,7 @@ import java.util.List;
  * @create: 2023-05-21 12:05
  **/
 public interface IDrawAlgorithm {
+
     /**
      * 程序启动时初始化概率元祖，在初始化完成后使用过程中不允许修改元祖数据
      * <p>
@@ -28,24 +29,26 @@ public interface IDrawAlgorithm {
      * 5. 当后续通过随机数获取到1-100的值后，可以直接定位到对应的奖品信息，通过这样的方式把轮训算奖的时间复杂度从O(n) 降低到 0(1)
      *
      * @param strategyId        策略ID
+     * @param strategyMode      抽奖策略模式
      * @param awardRateInfoList 奖品概率配置集合 「值示例：AwardRateInfo.awardRate = 0.04」
      */
-    void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfoList);
+    void initRateTuple(Long strategyId,Integer strategyMode, List<AwardRateInfo> awardRateInfoList);
 
     /**
      * 判断是否已经，做了数据初始化
-     * @param strategyId
-     * @return
+     * @param strategyId    策略ID
+     * @return              判断结果
      */
-    boolean isExistRateTuple(Long strategyId);
+    boolean isExist(Long strategyId);
 
     /**
      * SecureRandom 生成随机数，索引到对应的奖品信息返回结果
      *
-     * @param strategyId 策略ID
-     * @param excludeAwardIds 排除掉已经不能作为抽奖的奖品ID，留给风控和空库存使用
-     * @return 中奖结果
+     * @param strategyId        策略ID
+     * @param excludeAwardIds   排除掉已经不能作为抽奖的奖品ID，留给风控和空库存使用
+     * @return                  中奖结果
      */
     String randomDraw(Long strategyId, List<String> excludeAwardIds);
 
 }
+
