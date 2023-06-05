@@ -6,7 +6,7 @@ package com.example.lottery.domain.award.repository;
  * @author: lyj
  * @create: 2023-05-21 23:39
  **/
-public interface IAwardRepository {
+public interface IOrderRepository {
 
     // TODO 对分库分表中的用户中奖纪录操作
 

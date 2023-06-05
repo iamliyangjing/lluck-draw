@@ -3,8 +3,12 @@ package com.example.lottery.domain.activity.service.partake;
 import com.example.lottery.domain.activity.model.req.PartakeReq;
 import com.example.lottery.domain.activity.model.res.PartakeResult;
 import com.example.lottery.domain.activity.model.vo.ActivityBillVO;
+import com.example.lottery.domain.support.ids.IIdGenerator;
 import com.example.lotterycommon.Constants;
 import com.example.lotterycommon.Result;
+
+import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @program: lluck-draw
@@ -13,6 +17,9 @@ import com.example.lotterycommon.Result;
  * @create: 2023-06-04 22:42
  **/
 public abstract class BaseActivityPartake extends ActivityPartakeSupport implements IActivityPartake {
+
+    @Resource
+    private Map<Constants.Ids, IIdGenerator> idGeneratorMap;
 
     @Override
     public PartakeResult doPartake(PartakeReq req) {
@@ -32,7 +39,9 @@ public abstract class BaseActivityPartake extends ActivityPartakeSupport impleme
         }
 
         // 领取活动信息【个人用户把活动信息写入到用户表】
-        Result grabResult = this.grabActivity(req, activityBillVO);
+        // 插入领取活动信息
+        Long takeId = idGeneratorMap.get(Constants.Ids.SnowFlake).nextId();
+        Result grabResult = this.grabActivity(req, activityBillVO, takeId);
         if (!Constants.ResponseCode.SUCCESS.getCode().equals(grabResult.getCode())) {
             return new PartakeResult(grabResult.getCode(), grabResult.getInfo());
         }
@@ -40,6 +49,8 @@ public abstract class BaseActivityPartake extends ActivityPartakeSupport impleme
         // 封装结果【返回的策略ID，用于继续完成抽奖步骤】
         PartakeResult partakeResult = new PartakeResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo());
         partakeResult.setStrategyId(activityBillVO.getStrategyId());
+        partakeResult.setTakeId(takeId);
+
         return partakeResult;
     }
 
@@ -65,7 +76,9 @@ public abstract class BaseActivityPartake extends ActivityPartakeSupport impleme
      *
      * @param partake 参与活动请求
      * @param bill    活动账单
+     * @param takeId  领取活动ID
      * @return 领取结果
      */
-    protected abstract Result grabActivity(PartakeReq partake, ActivityBillVO bill);
+    protected abstract Result grabActivity(PartakeReq partake, ActivityBillVO bill, Long takeId);
+
 }

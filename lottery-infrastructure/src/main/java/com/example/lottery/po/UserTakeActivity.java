@@ -39,9 +39,18 @@ public class UserTakeActivity {
      */
     private Integer takeCount;
     /**
+     * 活动单使用状态 0未使用、1已使用
+     * Constants.TaskState
+     */
+    private Integer state;
+    /**
      * 防重ID
      */
     private String uuid;
+    /**
+     * 策略ID
+     */
+    private Long strategyId;
     /**
      * 创建时间
      */
@@ -70,6 +79,20 @@ public class UserTakeActivity {
 
     public Long getTakeId() {
         return takeId;
+    }
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+    public Long getStrategyId() {
+        return strategyId;
+    }
+
+    public void setStrategyId(Long strategyId) {
+        this.strategyId = strategyId;
     }
 
     public void setTakeId(Long takeId) {
