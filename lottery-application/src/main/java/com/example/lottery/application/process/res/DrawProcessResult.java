@@ -1,6 +1,6 @@
 package com.example.lottery.application.process.res;
 
-import com.example.lottery.domain.strategy.domain.vo.DrawAwardInfo;
+import com.example.lottery.domain.strategy.domain.vo.DrawAwardVO;
 import com.example.lotterycommon.Result;
 
 /**
@@ -10,22 +10,22 @@ import com.example.lotterycommon.Result;
  * @create: 2023-06-05 22:09
  **/
 public class DrawProcessResult extends Result {
-    private DrawAwardInfo drawAwardInfo;
+    private DrawAwardVO drawAwardVO;
 
     public DrawProcessResult(String code, String info) {
         super(code, info);
     }
 
-    public DrawProcessResult(String code, String info, DrawAwardInfo drawAwardInfo) {
+    public DrawProcessResult(String code, String info, DrawAwardVO drawAwardVO) {
         super(code, info);
-        this.drawAwardInfo = drawAwardInfo;
+        this.drawAwardVO = drawAwardVO;
     }
 
-    public DrawAwardInfo getDrawAwardInfo() {
-        return drawAwardInfo;
+    public DrawAwardVO getDrawAwardInfo() {
+        return drawAwardVO;
     }
 
-    public void setDrawAwardInfo(DrawAwardInfo drawAwardInfo) {
-        this.drawAwardInfo = drawAwardInfo;
+    public void setDrawAwardInfo(DrawAwardVO drawAwardVO) {
+        this.drawAwardVO = drawAwardVO;
     }
 }

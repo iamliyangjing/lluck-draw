@@ -10,6 +10,7 @@ import com.example.lottery.po.UserTakeActivity;
 import com.example.lottery.po.UserTakeActivityCount;
 import com.example.lotterycommon.Constants;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -20,7 +21,7 @@ import java.util.Date;
  * @author: lyj
  * @create: 2023-06-04 22:47
  **/
-@Component
+@Repository
 public class UserTakeActivityRepository implements IUserTakeActivityRepository {
 
     @Resource

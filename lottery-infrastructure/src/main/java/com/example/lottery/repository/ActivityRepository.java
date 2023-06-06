@@ -8,6 +8,7 @@ import com.example.lottery.po.*;
 import com.example.lotterycommon.Constants;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
  * @author: lyj
  * @create: 2023-06-04 01:02
  **/
-@Component
+@Repository
 public class ActivityRepository implements IActivityRepository {
 
     @Resource

@@ -13,6 +13,7 @@ import com.example.lottery.po.Strategy;
 import com.example.lottery.po.StrategyDetail;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import java.util.List;
  * @author: lyj
  * @create: 2023-06-04 01:02
  **/
-@Component
+@Repository
 public class StrategyRepository implements IStrategyRepository {
 
     @Resource

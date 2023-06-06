@@ -1,6 +1,6 @@
 package com.example.lottery.domain.strategy.domain.res;
 
-import com.example.lottery.domain.strategy.domain.vo.DrawAwardInfo;
+import com.example.lottery.domain.strategy.domain.vo.DrawAwardVO;
 import com.example.lotterycommon.Constants;
 
 /**
@@ -26,10 +26,11 @@ public class DrawResult {
      */
     private Integer drawState = Constants.DrawState.FAIL.getCode();
 
+
     /**
      * 中奖奖品信息
      */
-    private DrawAwardInfo drawAwardInfo;
+    private DrawAwardVO drawAwardInfo;
 
     public DrawResult() {
     }
@@ -40,11 +41,11 @@ public class DrawResult {
         this.drawState = drawState;
     }
 
-    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardInfo drawAwardInfo) {
+    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardVO drawAwardVO) {
         this.uId = uId;
         this.strategyId = strategyId;
         this.drawState = drawState;
-        this.drawAwardInfo = drawAwardInfo;
+        this.drawAwardInfo = drawAwardVO;
     }
 
     public String getuId() {
@@ -71,12 +72,12 @@ public class DrawResult {
         this.drawState = drawState;
     }
 
-    public DrawAwardInfo getDrawAwardInfo() {
+    public DrawAwardVO getDrawAwardInfo() {
         return drawAwardInfo;
     }
 
-    public void setDrawAwardInfo(DrawAwardInfo drawAwardInfo) {
-        this.drawAwardInfo = drawAwardInfo;
+    public void setDrawAwardInfo(DrawAwardVO drawAwardVO) {
+        this.drawAwardInfo = drawAwardVO;
     }
 
 }
