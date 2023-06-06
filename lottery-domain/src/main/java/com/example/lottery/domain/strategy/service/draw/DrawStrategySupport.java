@@ -1,7 +1,7 @@
 package com.example.lottery.domain.strategy.service.draw;
 
-import com.example.lottery.domain.strategy.domain.aggregates.StrategyRich;
-import com.example.lottery.domain.strategy.domain.vo.AwardBriefVO;
+import com.example.lottery.domain.strategy.model.aggregates.StrategyRich;
+import com.example.lottery.domain.strategy.model.vo.AwardBriefVO;
 import com.example.lottery.domain.strategy.repository.IStrategyRepository;
 
 import javax.annotation.Resource;

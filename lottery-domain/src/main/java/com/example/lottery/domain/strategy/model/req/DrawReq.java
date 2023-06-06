@@ -1,4 +1,4 @@
-package com.example.lottery.domain.strategy.domain.req;
+package com.example.lottery.domain.strategy.model.req;
 
 /**
  * @program: lluck-draw

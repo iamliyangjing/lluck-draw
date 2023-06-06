@@ -1,6 +1,6 @@
 package com.example.lottery.domain.strategy.service.algorithm.impl;
 
-import com.example.lottery.domain.strategy.domain.vo.AwardRateVO;
+import com.example.lottery.domain.strategy.model.vo.AwardRateVO;
 import com.example.lottery.domain.strategy.service.algorithm.BaseAlgorithm;
 import org.springframework.stereotype.Component;
 

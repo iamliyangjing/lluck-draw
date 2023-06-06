@@ -3,13 +3,17 @@ package com.example.lottery.application.process.impl;
 import com.example.lottery.application.process.IActivityProcess;
 import com.example.lottery.application.process.req.DrawProcessReq;
 import com.example.lottery.application.process.res.DrawProcessResult;
+import com.example.lottery.application.process.res.RuleQuantificationCrowdResult;
 import com.example.lottery.domain.activity.model.req.PartakeReq;
 import com.example.lottery.domain.activity.model.res.PartakeResult;
 import com.example.lottery.domain.activity.model.vo.DrawOrderVO;
 import com.example.lottery.domain.activity.service.partake.IActivityPartake;
-import com.example.lottery.domain.strategy.domain.req.DrawReq;
-import com.example.lottery.domain.strategy.domain.res.DrawResult;
-import com.example.lottery.domain.strategy.domain.vo.DrawAwardVO;
+import com.example.lottery.domain.rule.model.req.DecisionMatterReq;
+import com.example.lottery.domain.rule.model.res.EngineResult;
+import com.example.lottery.domain.rule.service.engine.EngineFilter;
+import com.example.lottery.domain.strategy.model.req.DrawReq;
+import com.example.lottery.domain.strategy.model.res.DrawResult;
+import com.example.lottery.domain.strategy.model.vo.DrawAwardVO;
 import com.example.lottery.domain.strategy.service.draw.IDrawExec;
 import com.example.lottery.domain.support.ids.IIdGenerator;
 import com.example.lotterycommon.Constants;
@@ -36,6 +40,9 @@ public class ActivityProcessImpl implements IActivityProcess {
     @Resource
     private Map<Constants.Ids, IIdGenerator> idGeneratorMap;
 
+    @Resource(name = "ruleEngineHandle")
+    private EngineFilter engineFilter;
+
     @Override
     public DrawProcessResult doDrawProcess(DrawProcessReq req) {
         // 1. 领取活动
@@ -47,7 +54,7 @@ public class ActivityProcessImpl implements IActivityProcess {
         Long takeId = partakeResult.getTakeId();
 
         // 2. 执行抽奖
-        DrawResult drawResult = drawExec.doDrawExec(new DrawReq(req.getuId(), strategyId, String.valueOf(takeId)));
+        DrawResult drawResult = drawExec.doDrawExec(new DrawReq(req.getuId(), strategyId));
         if (Constants.DrawState.FAIL.getCode().equals(drawResult.getDrawState())) {
             return new DrawProcessResult(Constants.ResponseCode.LOSING_DRAW.getCode(), Constants.ResponseCode.LOSING_DRAW.getInfo());
         }
@@ -62,6 +69,21 @@ public class ActivityProcessImpl implements IActivityProcess {
         return new DrawProcessResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo(), drawAwardVO);
     }
 
+    @Override
+    public RuleQuantificationCrowdResult doRuleQuantificationCrowd(DecisionMatterReq req) {
+        // 1. 量化决策
+        EngineResult engineResult = engineFilter.process(req);
+
+        if (!engineResult.isSuccess()) {
+            return new RuleQuantificationCrowdResult(Constants.ResponseCode.RULE_ERR.getCode(),Constants.ResponseCode.RULE_ERR.getInfo());
+        }
+
+        // 2. 封装结果
+        RuleQuantificationCrowdResult ruleQuantificationCrowdResult = new RuleQuantificationCrowdResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo());
+        ruleQuantificationCrowdResult.setActivityId(Long.valueOf(engineResult.getNodeValue()));
+
+        return ruleQuantificationCrowdResult;
+    }
     private DrawOrderVO buildDrawOrderVO(DrawProcessReq req, Long strategyId, Long takeId, DrawAwardVO drawAwardVO) {
         long orderId = idGeneratorMap.get(Constants.Ids.SnowFlake).nextId();
         DrawOrderVO drawOrderVO = new DrawOrderVO();

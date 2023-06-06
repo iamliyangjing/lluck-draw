@@ -1,6 +1,6 @@
-package com.example.lottery.domain.strategy.domain.res;
+package com.example.lottery.domain.strategy.model.res;
 
-import com.example.lottery.domain.strategy.domain.vo.DrawAwardVO;
+import com.example.lottery.domain.strategy.model.vo.DrawAwardVO;
 import com.example.lotterycommon.Constants;
 
 /**

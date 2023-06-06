@@ -1,6 +1,6 @@
 package com.example.lottery.domain.strategy.service.algorithm;
 
-import com.example.lottery.domain.strategy.domain.vo.AwardRateVO;
+import com.example.lottery.domain.strategy.model.vo.AwardRateVO;
 import com.example.lotterycommon.Constants;
 
 import java.math.BigDecimal;

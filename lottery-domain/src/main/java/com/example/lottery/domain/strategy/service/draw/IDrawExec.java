@@ -1,7 +1,7 @@
 package com.example.lottery.domain.strategy.service.draw;
 
-import com.example.lottery.domain.strategy.domain.req.DrawReq;
-import com.example.lottery.domain.strategy.domain.res.DrawResult;
+import com.example.lottery.domain.strategy.model.req.DrawReq;
+import com.example.lottery.domain.strategy.model.res.DrawResult;
 
 /**
  * @program: lluck-draw

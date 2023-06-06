@@ -1,7 +1,7 @@
-package com.example.lottery.domain.strategy.domain.aggregates;
+package com.example.lottery.domain.strategy.model.aggregates;
 
-import com.example.lottery.domain.strategy.domain.vo.StrategyBriefVO;
-import com.example.lottery.domain.strategy.domain.vo.StrategyDetailBriefVO;
+import com.example.lottery.domain.strategy.model.vo.StrategyBriefVO;
+import com.example.lottery.domain.strategy.model.vo.StrategyDetailBriefVO;
 
 import java.util.List;
 

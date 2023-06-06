@@ -1,9 +1,9 @@
 package com.example.lottery.domain.strategy.service.draw;
 
-import com.example.lottery.domain.strategy.domain.aggregates.StrategyRich;
-import com.example.lottery.domain.strategy.domain.req.DrawReq;
-import com.example.lottery.domain.strategy.domain.res.DrawResult;
-import com.example.lottery.domain.strategy.domain.vo.*;
+import com.example.lottery.domain.strategy.model.aggregates.StrategyRich;
+import com.example.lottery.domain.strategy.model.req.DrawReq;
+import com.example.lottery.domain.strategy.model.res.DrawResult;
+import com.example.lottery.domain.strategy.model.vo.*;
 import com.example.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 import com.example.lotterycommon.Constants;
 import org.slf4j.Logger;
@@ -101,13 +101,13 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
         }
 
         AwardBriefVO award = super.queryAwardInfoByAwardId(awardId);
-        DrawAwardVO drawAwardVO = new DrawAwardVO(award.getAwardId(), award.getAwardType(), award.getAwardName(), award.getAwardContent());
-        drawAwardVO.setStrategyMode(strategy.getStrategyMode());
-        drawAwardVO.setGrantType(strategy.getGrantType());
-        drawAwardVO.setGrantDate(strategy.getGrantDate());
+        DrawAwardVO drawAwardInfo = new DrawAwardVO(uId, award.getAwardId(), award.getAwardType(), award.getAwardName(), award.getAwardContent());
+        drawAwardInfo.setStrategyMode(strategy.getStrategyMode());
+        drawAwardInfo.setGrantType(strategy.getGrantType());
+        drawAwardInfo.setGrantDate(strategy.getGrantDate());
         logger.info("执行策略抽奖完成【已中奖】，用户：{} 策略ID：{} 奖品ID：{} 奖品名称：{}", uId, strategyId, awardId, award.getAwardName());
 
-        return new DrawResult(uId, strategyId, Constants.DrawState.SUCCESS.getCode(), drawAwardVO);
+        return new DrawResult(uId, strategyId, Constants.DrawState.SUCCESS.getCode(), drawAwardInfo);
     }
 
 }

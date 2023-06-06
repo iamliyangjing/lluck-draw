@@ -1,4 +1,4 @@
-package com.example.lottery.domain.strategy.domain.vo;
+package com.example.lottery.domain.strategy.model.vo;
 
 /**
  * @description: 奖品简要信息

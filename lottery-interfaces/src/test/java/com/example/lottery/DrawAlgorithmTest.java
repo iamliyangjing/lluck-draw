@@ -1,9 +1,9 @@
 package com.example.lottery;
 
 import com.alibaba.fastjson.JSON;
-import com.example.lottery.domain.strategy.domain.req.DrawReq;
-import com.example.lottery.domain.strategy.domain.res.DrawResult;
-import com.example.lottery.domain.strategy.domain.vo.AwardRateVO;
+import com.example.lottery.domain.strategy.model.req.DrawReq;
+import com.example.lottery.domain.strategy.model.res.DrawResult;
+import com.example.lottery.domain.strategy.model.vo.AwardRateVO;
 import com.example.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 import com.example.lottery.domain.strategy.service.draw.IDrawExec;
 import com.example.lotterycommon.Constants;

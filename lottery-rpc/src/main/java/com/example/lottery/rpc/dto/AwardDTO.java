@@ -1,14 +1,25 @@
-package com.example.lottery.domain.strategy.domain.vo;
+package com.example.lottery.rpc.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @program: lluck-draw
- * @description: 中奖奖品信息
+ * @description: 奖品信息
  * @author: lyj
- * @create: 2023-05-21 14:10
+ * @create: 2023-06-07 00:14
  **/
-public class DrawAwardVO {
+public class AwardDTO implements Serializable {
+
+    /**
+     * 用户ID
+     */
+    private String userId;
+
+    /**
+     * 活动ID
+     */
+    private Long activityId;
 
     /**
      * 奖品ID
@@ -44,14 +55,16 @@ public class DrawAwardVO {
      */
     private Date grantDate;
 
-    public DrawAwardVO() {
+    public AwardDTO(String userId) {
+        this.userId = userId;
     }
 
-    public DrawAwardVO(String awardId, Integer awardType, String awardName, String awardContent) {
-        this.awardId = awardId;
-        this.awardType = awardType;
-        this.awardName = awardName;
-        this.awardContent = awardContent;
+    public Long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
 
     public String getAwardId() {
@@ -109,4 +122,20 @@ public class DrawAwardVO {
     public void setGrantDate(Date grantDate) {
         this.grantDate = grantDate;
     }
+
+    @Override
+    public String toString() {
+        return "AwardDTO{" +
+                "userId='" + userId + '\'' +
+                ", activityId=" + activityId +
+                ", awardId='" + awardId + '\'' +
+                ", awardType=" + awardType +
+                ", awardName='" + awardName + '\'' +
+                ", awardContent='" + awardContent + '\'' +
+                ", strategyMode=" + strategyMode +
+                ", grantType=" + grantType +
+                ", grantDate=" + grantDate +
+                '}';
+    }
+
 }
