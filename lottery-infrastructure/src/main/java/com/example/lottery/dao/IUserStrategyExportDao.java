@@ -27,7 +27,19 @@ public interface IUserStrategyExportDao {
      * @param uId 用户ID
      * @return 用户策略
      */
-    @DBRouter
+    @DBRouter(key = "uId")
     UserStrategyExport queryUserStrategyExportByUId(String uId);
+    /**
+     * 更新发奖状态
+     * @param userStrategyExport 发奖信息
+     */
+    @DBRouter(key = "uId")
+    void updateUserAwardState(UserStrategyExport userStrategyExport);
 
+    /**
+     * 更新发送MQ状态
+     * @param userStrategyExport 发送消息
+     */
+    @DBRouter(key = "uId")
+    void updateInvoiceMqState(UserStrategyExport userStrategyExport);
 }

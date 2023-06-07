@@ -3,6 +3,7 @@ package com.example.lottery.domain.activity.service.partake;
 import com.example.lottery.domain.activity.model.req.PartakeReq;
 import com.example.lottery.domain.activity.model.res.PartakeResult;
 import com.example.lottery.domain.activity.model.vo.ActivityBillVO;
+import com.example.lottery.domain.activity.model.vo.UserTakeActivityVO;
 import com.example.lottery.domain.support.ids.IIdGenerator;
 import com.example.lotterycommon.Constants;
 import com.example.lotterycommon.Result;
@@ -23,6 +24,13 @@ public abstract class BaseActivityPartake extends ActivityPartakeSupport impleme
 
     @Override
     public PartakeResult doPartake(PartakeReq req) {
+
+        // 1. 查询是否存在未执行抽奖领取活动单【user_take_activity 存在 state = 0，领取了但抽奖过程失败的，可以直接返回领取结果继续抽奖】
+        UserTakeActivityVO userTakeActivityVO = this.queryNoConsumedTakeActivityOrder(req.getActivityId(), req.getuId());
+        if (null != userTakeActivityVO) {
+            return buildPartakeResult(userTakeActivityVO.getStrategyId(), userTakeActivityVO.getTakeId());
+        }
+
         // 查询活动账单
         ActivityBillVO activityBillVO = super.queryActivityBill(req);
 
@@ -53,6 +61,30 @@ public abstract class BaseActivityPartake extends ActivityPartakeSupport impleme
 
         return partakeResult;
     }
+
+    /**
+     * 封装结果【返回的策略ID，用于继续完成抽奖步骤】
+     *
+     * @param strategyId 策略ID
+     * @param takeId     领取ID
+     * @return 封装结果
+     */
+    private PartakeResult buildPartakeResult(Long strategyId, Long takeId) {
+        PartakeResult partakeResult = new PartakeResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo());
+        partakeResult.setStrategyId(strategyId);
+        partakeResult.setTakeId(takeId);
+        return partakeResult;
+    }
+
+    /**
+     * 查询是否存在未执行抽奖领取活动单【user_take_activity 存在 state = 0，领取了但抽奖过程失败的，可以直接返回领取结果继续抽奖】
+     *
+     * @param activityId 活动ID
+     * @param uId        用户ID
+     * @return 领取单
+     */
+    protected abstract UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId);
+
 
     /**
      * 活动信息校验处理，把活动库存、状态、日期、个人参与次数

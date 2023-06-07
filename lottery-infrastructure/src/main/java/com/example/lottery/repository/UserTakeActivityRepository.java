@@ -4,6 +4,7 @@ import com.example.lottery.dao.IUserStrategyExportDao;
 import com.example.lottery.dao.IUserTakeActivityCountDao;
 import com.example.lottery.dao.IUserTakeActivityDao;
 import com.example.lottery.domain.activity.model.vo.DrawOrderVO;
+import com.example.lottery.domain.activity.model.vo.UserTakeActivityVO;
 import com.example.lottery.domain.activity.repository.IUserTakeActivityRepository;
 import com.example.lottery.po.UserStrategyExport;
 import com.example.lottery.po.UserTakeActivity;
@@ -97,9 +98,40 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
         userStrategyExport.setAwardName(drawOrder.getAwardName());
         userStrategyExport.setAwardContent(drawOrder.getAwardContent());
         userStrategyExport.setUuid(String.valueOf(drawOrder.getTakeId()));
+        userStrategyExport.setMqState(Constants.MQState.INIT.getCode());
 
         userStrategyExportDao.insert(userStrategyExport);
     }
 
+    @Override
+    public UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId) {
+
+        UserTakeActivity userTakeActivity = new UserTakeActivity();
+        userTakeActivity.setuId(uId);
+        userTakeActivity.setActivityId(activityId);
+        UserTakeActivity noConsumedTakeActivityOrder = userTakeActivityDao.queryNoConsumedTakeActivityOrder(userTakeActivity);
+
+        // 未查询到符合的领取单，直接返回 NULL
+        if (null == noConsumedTakeActivityOrder) {
+            return null;
+        }
+
+        UserTakeActivityVO userTakeActivityVO = new UserTakeActivityVO();
+        userTakeActivityVO.setActivityId(noConsumedTakeActivityOrder.getActivityId());
+        userTakeActivityVO.setTakeId(noConsumedTakeActivityOrder.getTakeId());
+        userTakeActivityVO.setStrategyId(noConsumedTakeActivityOrder.getStrategyId());
+        userTakeActivityVO.setState(noConsumedTakeActivityOrder.getState());
+
+        return userTakeActivityVO;
+    }
+
+    @Override
+    public void updateInvoiceMqState(String uId, Long orderId, Integer mqState) {
+        UserStrategyExport userStrategyExport = new UserStrategyExport();
+        userStrategyExport.setuId(uId);
+        userStrategyExport.setOrderId(orderId);
+        userStrategyExport.setMqState(mqState);
+        userStrategyExportDao.updateInvoiceMqState(userStrategyExport);
+    }
 
 }

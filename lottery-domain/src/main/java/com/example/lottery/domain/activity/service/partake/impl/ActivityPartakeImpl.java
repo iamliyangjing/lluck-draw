@@ -4,6 +4,7 @@ import com.example.dbrouterspringbootstarter.strategy.IDBRouterStrategy;
 import com.example.lottery.domain.activity.model.req.PartakeReq;
 import com.example.lottery.domain.activity.model.vo.ActivityBillVO;
 import com.example.lottery.domain.activity.model.vo.DrawOrderVO;
+import com.example.lottery.domain.activity.model.vo.UserTakeActivityVO;
 import com.example.lottery.domain.activity.repository.IUserTakeActivityRepository;
 import com.example.lottery.domain.activity.service.partake.BaseActivityPartake;
 import com.example.lottery.domain.support.ids.IIdGenerator;
@@ -37,6 +38,12 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
 
     @Resource
     private IDBRouterStrategy dbRouter;
+
+
+    @Override
+    protected UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId) {
+        return userTakeActivityRepository.queryNoConsumedTakeActivityOrder(activityId, uId);
+    }
 
     @Override
     protected Result checkActivityBill(PartakeReq partake, ActivityBillVO bill) {
@@ -134,5 +141,9 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
 
     }
 
+    @Override
+    public void updateInvoiceMqState(String uId, Long orderId, Integer mqState) {
+        userTakeActivityRepository.updateInvoiceMqState(uId, orderId, mqState);
+    }
 }
 
