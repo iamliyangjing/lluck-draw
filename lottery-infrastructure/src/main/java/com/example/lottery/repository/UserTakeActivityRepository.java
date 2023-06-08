@@ -4,6 +4,7 @@ import com.example.lottery.dao.IUserStrategyExportDao;
 import com.example.lottery.dao.IUserTakeActivityCountDao;
 import com.example.lottery.dao.IUserTakeActivityDao;
 import com.example.lottery.domain.activity.model.vo.DrawOrderVO;
+import com.example.lottery.domain.activity.model.vo.InvoiceVO;
 import com.example.lottery.domain.activity.model.vo.UserTakeActivityVO;
 import com.example.lottery.domain.activity.repository.IUserTakeActivityRepository;
 import com.example.lottery.po.UserStrategyExport;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: lluck-draw
@@ -133,5 +136,26 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
         userStrategyExport.setMqState(mqState);
         userStrategyExportDao.updateInvoiceMqState(userStrategyExport);
     }
+
+
+    @Override
+    public List<InvoiceVO> scanInvoiceMqState() {
+        // 查询发送MQ失败和超时30分钟，未发送MQ的数据
+        List<UserStrategyExport> userStrategyExportList = userStrategyExportDao.scanInvoiceMqState();
+        // 转换对象
+        List<InvoiceVO> invoiceVOList = new ArrayList<>(userStrategyExportList.size());
+        for (UserStrategyExport userStrategyExport : userStrategyExportList) {
+            InvoiceVO invoiceVO = new InvoiceVO();
+            invoiceVO.setuId(userStrategyExport.getuId());
+            invoiceVO.setOrderId(userStrategyExport.getOrderId());
+            invoiceVO.setAwardId(userStrategyExport.getAwardId());
+            invoiceVO.setAwardType(userStrategyExport.getAwardType());
+            invoiceVO.setAwardName(userStrategyExport.getAwardName());
+            invoiceVO.setAwardContent(userStrategyExport.getAwardContent());
+            invoiceVOList.add(invoiceVO);
+        }
+        return invoiceVOList;
+    }
+
 
 }

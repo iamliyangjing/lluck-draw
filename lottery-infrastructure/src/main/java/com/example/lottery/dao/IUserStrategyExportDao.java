@@ -5,6 +5,8 @@ import com.example.dbrouterspringbootstarter.annotation.DBRouterStrategy;
 import com.example.lottery.po.UserStrategyExport;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @program: lluck-draw
  * @description: 用户策略计算结果表DAO
@@ -42,4 +44,13 @@ public interface IUserStrategyExportDao {
      */
     @DBRouter(key = "uId")
     void updateInvoiceMqState(UserStrategyExport userStrategyExport);
+
+
+    /**
+     * 扫描发货单 MQ 状态，把未发送 MQ 的单子扫描出来，做补偿
+     *
+     * @return 发货单
+     */
+    List<UserStrategyExport> scanInvoiceMqState();
+
 }
