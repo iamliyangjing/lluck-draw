@@ -1,6 +1,7 @@
 package com.example.lottery.dao;
 
-import com.example.lottery.po.UserTakeActivity;
+import com.example.lottery.infrastructure.po.UserTakeActivity;
+import com.example.lottery.infrastructure.dao.IUserTakeActivityDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

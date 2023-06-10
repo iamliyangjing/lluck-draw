@@ -1,7 +1,8 @@
 package com.example.lottery.dao;
 
 import com.alibaba.fastjson.JSON;
-import com.example.lottery.po.Activity;
+import com.example.lottery.infrastructure.po.Activity;
+import com.example.lottery.infrastructure.dao.IActivityDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

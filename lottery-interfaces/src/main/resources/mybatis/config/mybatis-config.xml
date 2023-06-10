@@ -4,6 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="com.example.lottery.po.Activity"/>
+        <package name="com.example.lottery.infrastructure.po.Activity"/>
     </typeAliases>
 </configuration>

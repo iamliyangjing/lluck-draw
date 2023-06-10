@@ -2,10 +2,8 @@ package com.example.lottery.domain.activity.service.partake.impl;
 
 import com.example.dbrouterspringbootstarter.strategy.IDBRouterStrategy;
 import com.example.lottery.domain.activity.model.req.PartakeReq;
-import com.example.lottery.domain.activity.model.vo.ActivityBillVO;
-import com.example.lottery.domain.activity.model.vo.DrawOrderVO;
-import com.example.lottery.domain.activity.model.vo.InvoiceVO;
-import com.example.lottery.domain.activity.model.vo.UserTakeActivityVO;
+import com.example.lottery.domain.activity.model.res.StockResult;
+import com.example.lottery.domain.activity.model.vo.*;
 import com.example.lottery.domain.activity.repository.IUserTakeActivityRepository;
 import com.example.lottery.domain.activity.service.partake.BaseActivityPartake;
 import com.example.lottery.domain.support.ids.IIdGenerator;
@@ -87,6 +85,16 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
     }
 
     @Override
+    protected StockResult subtractionActivityStockByRedis(String uId, Long activityId, Integer stockCount) {
+        return activityRepository.subtractionActivityStockByRedis(uId, activityId, stockCount);
+    }
+
+    @Override
+    protected void recoverActivityCacheStockByRedis(Long activityId, String tokenKey, String code) {
+        activityRepository.recoverActivityCacheStockByRedis(activityId, tokenKey, code);
+    }
+
+    @Override
     protected Result grabActivity(PartakeReq partake, ActivityBillVO bill, Long takeId) {
         try {
             dbRouter.doRouter(partake.getuId());
@@ -160,6 +168,11 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
         } finally {
             dbRouter.clear();
         }
+    }
+
+    @Override
+    public void updateActivityStock(ActivityPartakeRecordVO activityPartakeRecordVO) {
+
     }
 }
 

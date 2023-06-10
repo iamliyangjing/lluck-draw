@@ -1,7 +1,7 @@
 package com.example.lottery;
 
 import com.alibaba.fastjson.JSON;
-import com.example.lottery.dao.IActivityDao;
+import com.example.lottery.infrastructure.dao.IActivityDao;
 import com.example.lottery.domain.award.model.req.GoodsReq;
 import com.example.lottery.domain.award.model.res.DistributionRes;
 import com.example.lottery.domain.award.service.factory.DistributionGoodsFactory;
@@ -10,7 +10,7 @@ import com.example.lottery.domain.strategy.model.req.DrawReq;
 import com.example.lottery.domain.strategy.model.res.DrawResult;
 import com.example.lottery.domain.strategy.model.vo.DrawAwardVO;
 import com.example.lottery.domain.strategy.service.draw.IDrawExec;
-import com.example.lottery.po.Activity;
+import com.example.lottery.infrastructure.po.Activity;
 import com.example.lotterycommon.Constants;
 import org.junit.Test;
 import org.junit.runner.RunWith;
